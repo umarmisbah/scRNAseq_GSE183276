@@ -69,13 +69,14 @@ BiocManager::install(c("batchelor", "zellkonverter", "SingleCellExperiment"))
 ```
 
 ## Quality Control Parameters
-| Metric                   | Threshold             |
-| ------------------------ | --------------------- |
-| Minimum genes per cell   | `nFeature_RNA > 200`  |
-| Maximum genes per cell   | `nFeature_RNA < 7000` |
-| Mitochondrial percentage | `percent.mt < 15%`    |
-| Ribosomal percentage     | `percent.rb < 10%`    |
-| UMI outlier filtering    | Mahalanobis distance  |
+| Metric                   | Threshold             | Explanation |
+| ------------------------ | --------------------- | ------------ |
+| Minimum genes per cell   | `nFeature_RNA > 200`  | Remove low-quality cells and empty droplets |
+| Maximum genes per cell   | `nFeature_RNA < 7000` | Reduce potential doublets or multiplets |
+| Mitochondrial percentage | `percent.mt < 15%`    | Remove stressed or dying cells with high mitochondrial RNA |
+| Ribosomal percentage     | `percent.rb < 10%`    | Reduce ribosomal-dominant low-information cells |
+| UMI outlier filtering    | Mahalanobis distance  | Identify global count outliers |
 
-#### AUTHOR
-UMAR MISBAH 
+## Author
+
+Umar Misbah
