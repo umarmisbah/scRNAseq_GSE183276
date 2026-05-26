@@ -1,12 +1,14 @@
-# scRNAseq_GSE183276
-scRNA-seq analysis workflow in R for kidney fibrosis dataset (GSE183276) including preprocessing, quality control, clustering, batch correction, visualization, and downstream analysis.
+# GSE183276 scRNA-seq Analysis
+scRNA-seq analysis workflow in R for the kidney fibrosis dataset GSE183276 including preprocessing, quality control, clustering, batch correction, visualization, and downstream analysis.
+## DATA and DEPENDENCIES
 
-## DATA \& DEPENDENCIES
-
-### DATASET: GSE183276 - Diabetic Kidney Disease scRNA-seq :- GEO Accession Page
+### DATASET: GSE183276 - Diabetic Kidney Disease scRNA-seq
 
 GEO Accession: GSE183276
-Download counts matrix: wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE183nnn/GSE183276/suppl/GSE183276_Kidney_Healthy-Injury_Cell_Atlas_scCv3_Counts_03282022.RDS.gz
+Download counts matrix: 
+```bash
+wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE183nnn/GSE183276/suppl/GSE183276_Kidney_Healthy-Injury_Cell_Atlas_scCv3_Counts_03282022.RDS.gz
+```
 
 **Additional files used:**
 - Metadata file 
@@ -30,6 +32,7 @@ Download counts matrix: wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE183nnn/G
 ### R Dependencies
 
 #### CRAN packages
+```r
 install.packages(c(
   "Seurat",
   "SeuratDisk",
@@ -44,31 +47,26 @@ install.packages(c(
   "dittoSeq",
   "harmony"
 ))
+```
 
 #### Bioconductor packages
-
+```r
 if (!requireNamespace("BiocManager", quietly = TRUE))
 install.packages("BiocManager")
 
 BiocManager::install(c("batchelor", "zellkonverter", "SingleCellExperiment"))
+```
 
-|Package|Purpose / Use|
-|-|-|
-|`Seurat`|Core single-cell RNA-seq analysis (QC, normalization, clustering, UMAP/tSNE).|
-|`SeuratDisk`|Convert Seurat objects to/from `.h5ad` / `.h5seurat` for interoperability with Python (Scanpy) or saving intermediate results.|
-|`dplyr`|Data manipulation, filtering, and summarization of metadata or gene-level data.|
-|`R.utils`|Utility functions, e.g., for handling compressed files (.gz).|
-|`ggplot2`|High-quality plotting (violin plots, scatter plots, heatmaps).|
-|`ggExtra`|Enhances ggplot2 plots with marginal histograms or density plots.|
-|`RColorBrewer`|Color palettes for plots (clusters, conditions).|
-|`openxlsx`|Export tables and results to Excel files (e.g., DEG results).|
-|`scales`|Scales and formatting for ggplot2 axes and legends.|
-|`HGNChelper`|Corrects gene symbols to HGNC-approved names. Useful for DEG/pathway analysis.|
-|`dittoSeq`|Simplified plotting for scRNA-seq data (boxplots, dotplots, UMAPs, heatmaps).|
-|`harmony`|Batch correction to integrate multiple samples or donors.|
-|`batchelor`|Alternative batch correction for SingleCellExperiment objects.|
-|`zellkonverter`|Read/write between `SingleCellExperiment` and `.h5ad` (Scanpy) formats.|
-|`SingleCellExperiment`|Core S4 class for single-cell data in R (used by `batchelor` and other Bioconductor packages).|
+## Repository Structure
+
+```text
+├── input/
+├── output/
+├── plots/
+├── README.md
+├── qc_batchcorrection.Rmd
+└── Protein_coding_genes.txt
+```
 
 ## Quality Control Parameters
 | Metric                   | Threshold             |
@@ -77,7 +75,7 @@ BiocManager::install(c("batchelor", "zellkonverter", "SingleCellExperiment"))
 | Maximum genes per cell   | `nFeature_RNA < 7000` |
 | Mitochondrial percentage | `percent.mt < 15%`    |
 | Ribosomal percentage     | `percent.rb < 10%`    |
-| UMI outlier filtering    | Mahalanobis distance < 0.05  |
+| UMI outlier filtering    | Mahalanobis distance  |
 
 #### AUTHOR
 UMAR MISBAH 
